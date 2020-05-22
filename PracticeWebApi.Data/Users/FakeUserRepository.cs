@@ -1,4 +1,5 @@
 ﻿using PracticeWebApi.CommonClasses;
+using PracticeWebApi.CommonClasses.Exceptions;
 using PracticeWebApi.CommonClasses.Users;
 using System;
 using System.Collections.Generic;
@@ -18,8 +19,8 @@ namespace PracticeWebApi.Data.Users
 
         public Task AddUser(UserDataEntity user)
         {
-            if (_users.Any(u => u.Id == user.Id)) throw new DuplicateUserException($"A user with id {user.Id} already exists");
-            if (_users.Any(u => u.Email == user.Email)) throw new DuplicateUserException($"A user with email {user.Email} already exists");
+            if (_users.Any(u => u.Id == user.Id)) throw new DuplicateResourceException($"A user with id {user.Id} already exists");
+            if (_users.Any(u => u.Email == user.Email)) throw new DuplicateResourceException($"A user with email {user.Email} already exists");
 
             _users.Add(user);
 

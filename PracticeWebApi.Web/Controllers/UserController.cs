@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PracticeWebApi.CommonClasses;
+using PracticeWebApi.CommonClasses.Exceptions;
 using PracticeWebApi.CommonClasses.Users;
 using PracticeWebApi.Services;
 using System;
@@ -25,7 +25,7 @@ namespace PracticeWebApi.Web.Controllers
                 var addedUser = await _userService.AddUser(user);
                 return Ok(addedUser);
             }
-            catch(DuplicateUserException exception)
+            catch(DuplicateResourceException exception)
             {
                 return BadRequest(exception.Message);
             }

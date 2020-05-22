@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PracticeWebApi.CommonClasses
+namespace PracticeWebApi.CommonClasses.Exceptions
 {
     public class ResourceNotFoundException : Exception
     {

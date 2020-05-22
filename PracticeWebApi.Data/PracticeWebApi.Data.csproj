@@ -8,4 +8,8 @@
     <ProjectReference Include="..\PracticeWebApi.CommonClasses\PracticeWebApi.CommonClasses.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Products\" />
+  </ItemGroup>
+
 </Project>
