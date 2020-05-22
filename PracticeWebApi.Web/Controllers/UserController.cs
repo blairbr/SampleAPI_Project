@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using PracticeWebApi.CommonClasses;
 using PracticeWebApi.CommonClasses.Users;
 using PracticeWebApi.Services;
 using System;
@@ -23,6 +25,10 @@ namespace PracticeWebApi.Web.Controllers
                 var addedUser = await _userService.AddUser(user);
                 return Ok(addedUser);
             }
+            catch(DuplicateUserException exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
+            }
             catch(Exception exception)
             {
                 return (BadRequest($"Add user failed due to {exception.Message}"));
@@ -37,9 +43,13 @@ namespace PracticeWebApi.Web.Controllers
                 await _userService.UpdateUser(user);
                 return Ok();
             }
+            catch (ResourceNotFoundException exception)
+            {
+                return NotFound(exception.Message);
+            }
             catch (Exception exception)
             {
-                return (BadRequest($"Update user failed due to {exception.Message}"));
+                return BadRequest($"Update user failed due to {exception.Message}");
             }
         }
 
@@ -50,6 +60,10 @@ namespace PracticeWebApi.Web.Controllers
             {
                 await _userService.DeleteUser(id);
                 return Ok();
+            }
+            catch (ResourceNotFoundException exception)
+            {
+                return NotFound(exception.Message);
             }
             catch (Exception exception)
             {
@@ -78,6 +92,10 @@ namespace PracticeWebApi.Web.Controllers
             {
                 var user = await _userService.FindUserById(id);
                 return Ok(user);
+            }
+            catch (ResourceNotFoundException exception)
+            {
+                return NotFound(exception.Message);
             }
             catch (Exception exception)
             {

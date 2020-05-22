@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PracticeWebApi.CommonClasses;
+using PracticeWebApi.CommonClasses.Users;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +18,8 @@ namespace PracticeWebApi.Data.Users
 
         public Task AddUser(UserDataEntity user)
         {
-            if (_users.Any(u => u.Id == user.Id)) throw new InvalidOperationException($"A user with id {user.Id} already exists");
+            if (_users.Any(u => u.Id == user.Id)) throw new DuplicateUserException($"A user with id {user.Id} already exists");
+            if (_users.Any(u => u.Email == user.Email)) throw new DuplicateUserException($"A user with email {user.Email} already exists");
 
             _users.Add(user);
 
@@ -25,7 +28,7 @@ namespace PracticeWebApi.Data.Users
 
         public Task DeleteUser(string id)
         {
-            if (!_users.Any(user => user.Id == id)) throw new InvalidOperationException($"No user found with id {id}");
+            if (!_users.Any(user => user.Id == id)) throw new ResourceNotFoundException($"No user found with id {id}");
 
             _users = _users.Where(user => user.Id != id).ToList();
 
@@ -36,7 +39,7 @@ namespace PracticeWebApi.Data.Users
         {
             var user = _users.FirstOrDefault(u => u.Id == id);
 
-            if (user is null) throw new InvalidOperationException($"No user found with id {id}");
+            if (user is null) throw new ResourceNotFoundException($"No user found with id {id}");
 
             return Task.FromResult(user);
         }
@@ -48,9 +51,23 @@ namespace PracticeWebApi.Data.Users
 
         public Task UpdateUser(UserDataEntity user)
         {
-            DeleteUser(user.Id);
+            var deletedUser = _users.FirstOrDefault(u => u.Id == user.Id);
 
-            _users.Add(user);
+            try
+            {
+                DeleteUser(user.Id);
+                AddUser(user);
+            }
+            catch(Exception)
+            {
+                if(!_users.Any(u => u.Id == deletedUser.Id))
+                {
+                    AddUser(deletedUser);
+                }
+
+                throw;
+            }
+
 
             return Task.CompletedTask;
         }
