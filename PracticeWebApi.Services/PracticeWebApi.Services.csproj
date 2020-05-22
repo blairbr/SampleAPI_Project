@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CommonClasses\PracticeWebApi.CommonClasses.csproj" />
+    <ProjectReference Include="..\PracticeWebApi.CommonClasses\PracticeWebApi.CommonClasses.csproj" />
     <ProjectReference Include="..\PracticeWebApi.Data\PracticeWebApi.Data.csproj" />
   </ItemGroup>
 
