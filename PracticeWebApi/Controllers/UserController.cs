@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PracticeWebApi.CommonClasses.Users;
 using PracticeWebApi.Services;
 using System;
 using System.Threading.Tasks;
 
-namespace PracticeWebApi.Controllers
+namespace PracticeWebApi.Web.Controllers
 {
     public class UserController : Controller
     {

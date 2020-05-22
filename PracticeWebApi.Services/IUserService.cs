@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using PracticeWebApi.CommonClasses.Users;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PracticeWebApi.Services

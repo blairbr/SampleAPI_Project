@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using PracticeWebApi.CommonClasses.Users;
+using PracticeWebApi.Data;
+using PracticeWebApi.Data.Users;
 using PracticeWebApi.Services;
+using PracticeWebApi.Services.Users;
 
 namespace PracticeWebApi
 {
@@ -28,6 +25,7 @@ namespace PracticeWebApi
         {
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IUserRepository, FakeUserRepository>();
+            services.AddSingleton<IMapper<User, UserDataEntity>, UserMapper>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PracticeWebApi.Services
+namespace PracticeWebApi.Data.Users
 {
     public class FakeUserRepository : IUserRepository
     {
-        private IList<User> _users;
+        private IList<UserDataEntity> _users;
 
         public FakeUserRepository()
         {
-            _users = new List<User>();
+            _users = new List<UserDataEntity>();
         }
 
-        public Task AddUser(User user)
+        public Task AddUser(UserDataEntity user)
         {
             if (_users.Any(u => u.Id == user.Id)) throw new InvalidOperationException($"A user with id {user.Id} already exists");
 
@@ -32,7 +32,7 @@ namespace PracticeWebApi.Services
             return Task.CompletedTask;
         }
 
-        public Task<User> FindUserById(string id)
+        public Task<UserDataEntity> FindUserById(string id)
         {
             var user = _users.FirstOrDefault(u => u.Id == id);
 
@@ -41,12 +41,12 @@ namespace PracticeWebApi.Services
             return Task.FromResult(user);
         }
 
-        public Task<IList<User>> GetAllUsers()
+        public Task<IList<UserDataEntity>> GetAllUsers()
         {
             return Task.FromResult(_users);
         }
 
-        public Task UpdateUser(User user)
+        public Task UpdateUser(UserDataEntity user)
         {
             DeleteUser(user.Id);
 
