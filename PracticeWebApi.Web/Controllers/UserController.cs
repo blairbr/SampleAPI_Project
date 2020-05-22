@@ -27,11 +27,11 @@ namespace PracticeWebApi.Web.Controllers
             }
             catch(DuplicateUserException exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
+                return BadRequest(exception.Message);
             }
             catch(Exception exception)
             {
-                return (BadRequest($"Add user failed due to {exception.Message}"));
+                return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
             }
         }
 
@@ -49,7 +49,7 @@ namespace PracticeWebApi.Web.Controllers
             }
             catch (Exception exception)
             {
-                return BadRequest($"Update user failed due to {exception.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
             }
         }
 
@@ -67,7 +67,7 @@ namespace PracticeWebApi.Web.Controllers
             }
             catch (Exception exception)
             {
-                return (BadRequest($"Delete user failed due to {exception.Message}"));
+                return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
             }
         }
 
@@ -81,7 +81,7 @@ namespace PracticeWebApi.Web.Controllers
             }
             catch (Exception exception)
             {
-                return (BadRequest($"Find all users failed due to {exception.Message}"));
+                return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
             }
         }
 
@@ -99,7 +99,7 @@ namespace PracticeWebApi.Web.Controllers
             }
             catch (Exception exception)
             {
-                return (BadRequest($"Find user by id failed due to {exception.Message}"));
+                return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
             }
         }
     }
