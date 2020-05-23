@@ -25,7 +25,7 @@ namespace PracticeWebApi.Data.Users
 	              [city] = @City,
 	              [state] = @State,
 	              [zip] = @Zip
-            WHERE[Id] = @Id";
+            WHERE [Id] = @Id";
 
         public async Task UpdateUser(UserDataEntity userDataEntity)
         {

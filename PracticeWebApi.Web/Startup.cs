@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PracticeWebApi.CommonClasses.Users;
 using PracticeWebApi.Data;
+using PracticeWebApi.Data.Products;
 using PracticeWebApi.Data.Users;
 using PracticeWebApi.Services;
 using PracticeWebApi.Services.Users;
@@ -26,7 +27,8 @@ namespace PracticeWebApi
             services.AddSingleton<IUserService, UserService>();
 
             // change repo here
-            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<IProductGroupRepository, FakeProductGroupRepository>();
+            services.AddSingleton<IUserRepository, FakeUserRepository>();
             services.AddSingleton<IMapper<User, UserDataEntity>, UserMapper>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
