@@ -1,33 +1,81 @@
-﻿using System.Collections.Generic;
+﻿using Dapper;
+using PracticeWebApi.CommonClasses.Exceptions;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PracticeWebApi.Data.Users
 {
     public class UserRepository : IUserRepository
     {
-        public Task AddUser(UserDataEntity user)
+        private string _connectionString = "Data Source = Silver; Initial Catalog = PracticeCommerce; Integrated Security = True;";
+        private string _insertUser =
+            @"INSERT INTO Users (id, firstName, lastName, email, address, city, state, zip) VALUES " +
+            "(@Id, @FirstName, @LastName, @Email, @Address, @City, @State, @Zip)";
+        private string _selectAllUsers = "SELECT * FROM Users";
+        private string _findUserById = "SELECT * FROM Users WHERE [Id] = @Apples";
+        private string _deleteUser = "DELETE FROM Users WHERE [Id] = @TunaFish";
+        private string _updateUser = @"  
+            UPDATE Users
+              SET [firstName] = @FirstName,
+	              [lastName] = @LastName,
+	              [email] = @Email,
+	              [address] = @Address,
+	              [city] = @City,
+	              [state] = @State,
+	              [zip] = @Zip
+            WHERE[Id] = @Id";
+
+        public async Task UpdateUser(UserDataEntity userDataEntity)
         {
-            throw new System.NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await FindUserById(userDataEntity.Id);
+                await connection.ExecuteAsync(_updateUser, userDataEntity);
+            }
         }
 
-        public Task DeleteUser(string id)
+        public async Task DeleteUser(string id)
         {
-            throw new System.NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await FindUserById(id);
+                await connection.ExecuteAsync(_deleteUser, new { TunaFish = id });
+            }
         }
 
-        public Task<UserDataEntity> FindUserById(string id)
+        public async Task<UserDataEntity> FindUserById(string id)
         {
-            throw new System.NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var results = await connection.QueryAsync<UserDataEntity>(_findUserById, new { Apples = id });
+
+                if (!results.Any()) throw new ResourceNotFoundException($"No user found with id {id}");
+                if (results.Count() > 1) throw new DuplicateResourceException($"Multiple users found with id {id}");
+
+                return results.Single();
+            }
         }
 
-        public Task<IList<UserDataEntity>> GetAllUsers()
+        public async Task<IList<UserDataEntity>> GetAllUsers()
         {
-            throw new System.NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                return (await connection.QueryAsync<UserDataEntity>(_selectAllUsers)).ToList();
+            }
         }
 
-        public Task UpdateUser(UserDataEntity user)
+        public async Task AddUser(UserDataEntity userDataEntity)
         {
-            throw new System.NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var existingUsers = await GetAllUsers();
+                if (existingUsers.Any(user => user.Id == userDataEntity.Id || user.Email == userDataEntity.Email))
+                    throw new DuplicateResourceException($"A user already exists with Id {userDataEntity.Id} or Email {userDataEntity.Email}");
+
+                await connection.ExecuteAsync(_insertUser, userDataEntity);
+            }
         }
     }
 }

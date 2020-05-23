@@ -24,8 +24,11 @@ namespace PracticeWebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IUserService, UserService>();
-            services.AddSingleton<IUserRepository, FakeUserRepository>();
+
+            // change repo here
+            services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IMapper<User, UserDataEntity>, UserMapper>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

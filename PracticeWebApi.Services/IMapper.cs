@@ -1,8 +1,8 @@
 ﻿namespace PracticeWebApi.Services
 {
-    public interface IMapper<T, TDataEntity>
+    public interface IMapper<TunaFish, Apples>
     {
-        T MapToBase(TDataEntity dataEntity);
-        TDataEntity MapToDataEntity(T baseType);
+        TunaFish MapToBase(Apples dataEntity);
+        Apples MapToDataEntity(TunaFish baseType);
     }
 }
