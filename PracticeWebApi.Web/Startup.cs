@@ -28,12 +28,15 @@ namespace PracticeWebApi
         {
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IProductGroupService, ProductGroupService>();
+            services.AddSingleton<IProductService, ProductService>();
 
             // change repo here
             services.AddSingleton<IProductGroupRepository, ProductGroupRepository>();
-            services.AddSingleton<IUserRepository, FakeUserRepository>();
+            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<IProductRepository, FakeProductRepository>();
             services.AddSingleton<IMapper<User, UserDataEntity>, UserMapper>();
             services.AddSingleton<IMapper<ProductGroup, ProductGroupDataEntity>, ProductGroupMapper>();
+            services.AddSingleton<IMapper<Product, ProductDataEntity>, ProductMapper>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
