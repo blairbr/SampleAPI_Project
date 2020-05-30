@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PracticeWebApi.CommonClasses.Products;
 using PracticeWebApi.CommonClasses.Users;
 using PracticeWebApi.Data;
 using PracticeWebApi.Data.Products;
 using PracticeWebApi.Data.Users;
 using PracticeWebApi.Services;
+using PracticeWebApi.Services.Products;
 using PracticeWebApi.Services.Users;
 
 namespace PracticeWebApi
@@ -25,11 +27,13 @@ namespace PracticeWebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<IProductGroupService, ProductGroupService>();
 
             // change repo here
-            services.AddSingleton<IProductGroupRepository, FakeProductGroupRepository>();
+            services.AddSingleton<IProductGroupRepository, ProductGroupRepository>();
             services.AddSingleton<IUserRepository, FakeUserRepository>();
             services.AddSingleton<IMapper<User, UserDataEntity>, UserMapper>();
+            services.AddSingleton<IMapper<ProductGroup, ProductGroupDataEntity>, ProductGroupMapper>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

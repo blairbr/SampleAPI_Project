@@ -1,24 +1,42 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PracticeWebApi.Data.Products
 {
     public class ProductGroupRepository : IProductGroupRepository
     {
-        public Task AddGroup(ProductGroupDataEntity productGroupDataEntity)
+        private string _connectionString = "Data Source = Silver; Initial Catalog = PracticeCommerce; Integrated Security = True;";
+        private string _insertStatement = "INSERT INTO ProductGroups (Id, Name) VALUES (@Id, @Name)";
+        private string _deleteStatement = "DELETE FROM ProductGroups WHERE [Id] = @Id";
+        private string _getAllGroups = "SELECT * FROM ProductGroups";
+
+        public async Task AddGroup(ProductGroupDataEntity productGroupDataEntity)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.ExecuteAsync(_insertStatement, productGroupDataEntity);
+            }
         }
 
-        public Task DeleteProductGroup(string id)
+        public async Task DeleteProductGroup(string id)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.ExecuteAsync(_deleteStatement, new { Id = id });
+            }
         }
 
-        public Task<IList<ProductGroupDataEntity>> GetAllProductGroups()
+        public async Task<IList<ProductGroupDataEntity>> GetAllProductGroups()
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var results = await connection.QueryAsync<ProductGroupDataEntity>(_getAllGroups);
+                return results.ToList();
+            }
         }
     }
 }
