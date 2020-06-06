@@ -1,4 +1,5 @@
 ﻿using PracticeWebApi.CommonClasses.Exceptions;
+using PracticeWebApi.CommonClasses.Users;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

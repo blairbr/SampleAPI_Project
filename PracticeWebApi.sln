@@ -5,11 +5,13 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PracticeWebApi.Web", "PracticeWebApi.Web\PracticeWebApi.Web.csproj", "{95F8BD2D-8AE6-4D9D-88DC-AC1F331BF17B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PracticeWebApi.Services", "PracticeWebApi.Services\PracticeWebApi.Services.csproj", "{571690F4-EC98-4295-871C-BE9FEC54B579}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PracticeWebApi.Services", "PracticeWebApi.Services\PracticeWebApi.Services.csproj", "{571690F4-EC98-4295-871C-BE9FEC54B579}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PracticeWebApi.Data", "PracticeWebApi.Data\PracticeWebApi.Data.csproj", "{4F7552BF-5FF4-44CE-8065-F1C14DA8AF86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PracticeWebApi.Data", "PracticeWebApi.Data\PracticeWebApi.Data.csproj", "{4F7552BF-5FF4-44CE-8065-F1C14DA8AF86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PracticeWebApi.CommonClasses", "PracticeWebApi.CommonClasses\PracticeWebApi.CommonClasses.csproj", "{9604A422-8E42-4F1F-908F-7E1046555FE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PracticeWebApi.CommonClasses", "PracticeWebApi.CommonClasses\PracticeWebApi.CommonClasses.csproj", "{9604A422-8E42-4F1F-908F-7E1046555FE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PracticeWebApi.Client", "PracticeWebApi.Client\PracticeWebApi.Client.csproj", "{908F5227-6E78-427F-B85F-07522A41B79C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{9604A422-8E42-4F1F-908F-7E1046555FE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9604A422-8E42-4F1F-908F-7E1046555FE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9604A422-8E42-4F1F-908F-7E1046555FE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{908F5227-6E78-427F-B85F-07522A41B79C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{908F5227-6E78-427F-B85F-07522A41B79C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{908F5227-6E78-427F-B85F-07522A41B79C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{908F5227-6E78-427F-B85F-07522A41B79C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
